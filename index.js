@@ -4,8 +4,10 @@
 
 var inquirer = require("inquirer");
 var fs = require("fs");
-var axios = require("axios")
-var gh = require("./generateHTML")
+var axios = require("axios");
+var gh = require("./generateHTML");
+var util = require("util");
+const writeFileAsync = util.promisify(fs.writeFile);
 
 inquirer
     .prompt([
@@ -45,7 +47,7 @@ inquirer
                 
             // console.log(generateHTML)
             // var html = generateHTML(userData)
-            gh(userData)
+            return writeFileAsync(inputs.name +".pdf",gh(userData));
             
                 
           
