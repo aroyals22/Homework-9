@@ -8,6 +8,7 @@ var axios = require("axios");
 var gh = require("./generateHTML");
 var util = require("util");
 const writeFileAsync = util.promisify(fs.writeFile);
+const pdf = require("html-pdf");
 
 inquirer
     .prompt([
@@ -20,7 +21,7 @@ inquirer
         {
             type: "list",
             message: "Pick a favorite color",
-            choices: ["Aqua","Black","Blue","Brown","Green","Gray","Lavender","Orange","Pink","Purple","Red","Tan","Snow","Yellow"],
+            choices: ["Blue","Green","Pink","Red"],
             name: "color"
         }
     ]).then(function(inputs){
@@ -34,6 +35,7 @@ inquirer
 
             var userData = { colors: inputs.color.toLowerCase(),
                 imageURL: response.data.avatar_url,
+                name: response.data.name,
                 location: response.data.location,
                 profile_link: response.data.html_url,
                 repos: response.data.public_repos,
@@ -47,15 +49,20 @@ inquirer
                 
             // console.log(generateHTML)
             // var html = generateHTML(userData)
-            return writeFileAsync(inputs.name +".pdf",gh(userData));
-            
+
+            var fileName = "./" + userData.name.toLowerCase().split(" ").join("") +".pdf";
+            var profileHTML = gh(userData);
+
+            pdf.create(profileHTML).toFile(fileName, function(err, res){
+                if (err) return console.log("ERROR!!!!")
+
+            })
+
+                        
                 
           
 
-        }).catch(function(err){
-            console.log(err)
-        });
-
+        })
 
 
 

@@ -174,22 +174,43 @@ const colors = {
         </style>
         </head>
         <body>
-        <div class= "wrapper">
-           <div class= "photo-header">
-           <img src= "${data.imageURL}" alt="img">
-           <h1></h1>
-
-
-           </div>
-            <div class="main">
-            <container
+       <header>
+       <div class="wrapper">
+          <img src="${data.imageURL}"></img>
+            <br></br>
+       <h1>Hi!</h1>
+       <h2>My name is ${data.name}</h2>
+       <h3>Currently at ${data.location} </h3>
+            <div> class="links-nav">
+              <a class="nav-link" href="https:github.com/${data.profile}">github</a>
             </div>
+       </div>
+      </header>
+       <div class="container">
+        <div class="row">
+           <div class='col card'>
+             <h2>Public repositories: </h2>
+                 ${data.repos}
+               </div>
+               <div class="col card">
+                 <h2>Followers:</h1>
+                 ${data.followers}
+               </div>
+             </div>
+            //  <div class="row">
+            //    <div class="card col">
+            //      <h2>Stars:</h2>
+                //  
+            //    </div>
+               <div class="card col">
+                 <h2>Following:</h2>
+                 ${data.following}
+               </div>
+             </div>
         </div>
-
-
-          </body>
-          </html>`
-          }
+     </body>
+     </html>`
+    }
 
 
           module.exports = generateHTML
